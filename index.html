@@ -51,7 +51,7 @@
 
             renderer.setSize(window.innerWidth, window.innerHeight);
             // sky
-            renderer.setClearColor(0xcaf8f1, 1);
+            renderer.setClearColor(0xcaeff8, 1);
             renderer.shadowMap.enabled = true;
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -78,6 +78,7 @@
                 var frontObj = dae.getObjectByName("theFront");
                 frontObj = frontObj.children[0];
                 frontObjMaterial = frontObj.material;
+                console.log(frontObjMaterial);
 
                 var light = scene.getObjectByName("SpLight", true);
                 light = light.children[0];
@@ -171,7 +172,7 @@
         }
 
         function frontOut() {
-            frontObjMaterial.color.setRGB(0, 0, 0);
+            frontObjMaterial.color.setRGB(0.7568627450980392, 0.47058823529411764, 0.24313725490196078);
         }
     </script>
 </body>
