@@ -8,11 +8,14 @@
 
 <body>
     <div id="content">
+
+
+
         <div id="hud">
             <h1>You</h1>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse</p>
             <h2>
-                Click house to continue...
+                Click <span onmouseover="frontHover()" onmouseout="frontOut()">house</span> to continue...
             </h2>
         </div>
     </div>
@@ -20,8 +23,24 @@
     <script src="js/tween.min.js"></script>
     <script src="js/Detector.js"></script>
     <script src="js/ColladaLoader.js"></script>
-    <script src="js/actions.js"></script>
     <script>
+        var scene, camera, renderer, raycaster, frontObj;
+        var mouse = new THREE.Vector2(),
+            INTERSECTED;
+
+        var tweenSpeed = 2000;
+        var tweenSpeed1 = tweenSpeed / 2;
+        var overview = {
+            x: 0,
+            y: 600,
+            z: 1228,
+            alt: {
+                x: 0,
+                y: 600,
+                z: 1228
+            },
+        };
+
         function init() {
             if (!Detector.webgl) Detector.addGetWebGLMessage();
             scene = new THREE.Scene();
@@ -56,7 +75,9 @@
                 dae.updateMatrix();
                 scene.add(dae);
 
-                var front = dae.getObjectByName("front");
+                var frontObj = dae.getObjectByName("theFront");
+                frontObj = frontObj.children[0];
+                frontObjMaterial = frontObj.material;
 
                 var light = scene.getObjectByName("SpLight", true);
                 light = light.children[0];
@@ -95,7 +116,63 @@
                 renderer.render(scene, camera);
             }
         }
-        init();
+        init()
+
+        document.onmousedown = function(e) {
+            raycaster.setFromCamera(mouse, camera);
+            var intersects = raycaster.intersectObjects(scene.children, true);
+
+            if (intersects.length > 0) {
+                INTERSECTED = intersects[0].object;
+                if (INTERSECTED.parent.parent.name == "house" && INTERSECTED.parent.name == "theFront" && INTERSECTED.position.z !== 40) {
+
+                    var pos1 = new TWEEN.Tween(camera.position).to({
+                        x: -200,
+                        y: 30,
+                        z: 200
+                    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+                    var rot1 = new TWEEN.Tween(camera.rotation).to({
+                        x: 0,
+                        y: -1,
+                        z: 0
+                    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+                    var frontPos = new TWEEN.Tween(INTERSECTED.position).to({
+                        z: 4000
+                    }, tweenSpeed1).easing(TWEEN.Easing.Quadratic.InOut);
+
+                    pos1.start();
+                    frontPos.start();
+                    rot1.start();
+
+                } else if (INTERSECTED.parent.parent.name == "house" && INTERSECTED.parent.name == "theFront" && INTERSECTED.position.z == 40) {
+                    INTERSECTED.position.z -= 40;
+                    var pos2 = new TWEEN.Tween(camera.position).to({
+                        x: overview.x,
+                        y: overview.y,
+                        z: overview.z
+                    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+                    var rot2 = new TWEEN.Tween(camera.rotation).to({
+                        x: -.5,
+                        y: 0,
+                        z: 0
+                    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+                    pos2.start();
+                    rot2.start();
+                }
+            }
+        }
+
+        function frontHover() {
+            frontObjMaterial.color.setRGB(1, 1, 1);
+        }
+
+        function frontOut() {
+            frontObjMaterial.color.setRGB(0, 0, 0);
+        }
     </script>
 </body>
 

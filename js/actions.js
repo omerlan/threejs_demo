@@ -1,5 +1,5 @@
 //raycaster click function
-var scene, camera, renderer, raycaster;
+var scene, camera, renderer, raycaster, frontObj;
 var mouse = new THREE.Vector2(),
     INTERSECTED;
 
@@ -62,4 +62,9 @@ document.onmousedown = function (e) {
             rot2.start();
         }
     }
+}
+
+function frontHover() {
+    console.log("yuh")
+    console.log(frontObj);
 }
