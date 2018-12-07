@@ -9,8 +9,6 @@
 <body>
     <div id="content">
 
-
-
         <div id="hud">
             <h1>You</h1>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse</p>
@@ -31,14 +29,16 @@
         var tweenSpeed = 2000;
         var tweenSpeed1 = tweenSpeed / 2;
         var overview = {
-            x: 0,
-            y: 600,
-            z: 1228,
-            alt: {
+            position: {
                 x: 0,
                 y: 600,
                 z: 1228
             },
+            rotation: {
+                x: -.5,
+                y: 0,
+                z: 0
+            }
         };
 
         function init() {
@@ -75,10 +75,8 @@
                 dae.updateMatrix();
                 scene.add(dae);
 
-                var frontObj = dae.getObjectByName("theFront");
-                frontObj = frontObj.children[0];
-                frontObjMaterial = frontObj.material;
-                console.log(frontObjMaterial);
+                var frontObj = dae.getObjectByName("theFront").children[0];
+                frontMaterial = frontObj.material;
 
                 var light = scene.getObjectByName("SpLight", true);
                 light = light.children[0];
@@ -86,15 +84,11 @@
                 light.distance = 1000;
                 render();
             });
+
             //position camera
+            camera.position.set(overview.position.x, overview.position.y, overview.position.z);
+            camera.rotation.set(overview.rotation.x, overview.rotation.y, overview.rotation.z);
 
-            camera.position.x = overview.x;
-            camera.position.y = overview.y;
-            camera.position.z = overview.z;
-
-            camera.rotation.x = -.5;
-            camera.rotation.y = 0;
-            camera.rotation.z = 0;
             raycaster = new THREE.Raycaster();
 
             document.addEventListener('mousemove', onDocumentMouseMove, false);
@@ -109,9 +103,7 @@
                 requestAnimationFrame(render);
 
                 // var timer = Date.now() * 0.001;
-                // camera.rotation.x = Math.sin(timer);
-                // camera.rotation.y = Math.cos(timer);
-                // camera.rotation.z = Math.sin(timer);
+                // camera.rotation.set(Math.sin(timer), Math.cos(timer), Math.cos(timer));
 
                 TWEEN.update();
                 renderer.render(scene, camera);
@@ -125,7 +117,7 @@
 
             if (intersects.length > 0) {
                 INTERSECTED = intersects[0].object;
-                if (INTERSECTED.parent.parent.name == "house" && INTERSECTED.parent.name == "theFront" && INTERSECTED.position.z !== 40) {
+                if (INTERSECTED.parent.parent.name == "house" && INTERSECTED.parent.name == "theFront") {
 
                     var pos1 = new TWEEN.Tween(camera.position).to({
                         x: -200,
@@ -139,41 +131,25 @@
                         z: 0
                     }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
-                    var frontPos = new TWEEN.Tween(INTERSECTED.position).to({
-                        z: 4000
+                    var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
+                        x: 4000
                     }, tweenSpeed1).easing(TWEEN.Easing.Quadratic.InOut);
 
                     pos1.start();
                     frontPos.start();
                     rot1.start();
-
-                } else if (INTERSECTED.parent.parent.name == "house" && INTERSECTED.parent.name == "theFront" && INTERSECTED.position.z == 40) {
-                    INTERSECTED.position.z -= 40;
-                    var pos2 = new TWEEN.Tween(camera.position).to({
-                        x: overview.x,
-                        y: overview.y,
-                        z: overview.z
-                    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
-
-                    var rot2 = new TWEEN.Tween(camera.rotation).to({
-                        x: -.5,
-                        y: 0,
-                        z: 0
-                    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
-
-                    pos2.start();
-                    rot2.start();
                 }
             }
         }
 
         function frontHover() {
-            frontObjMaterial.color.setRGB(1, 1, 1);
+            frontMaterial.color.setRGB(1, .9, 0);
         }
 
         function frontOut() {
-            frontObjMaterial.color.setRGB(0.7568627450980392, 0.47058823529411764, 0.24313725490196078);
+            frontMaterial.color.setRGB(0.7568627450980392, 0.47058823529411764, 0.24313725490196078);
         }
+
     </script>
 </body>
 

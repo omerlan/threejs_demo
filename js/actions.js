@@ -6,14 +6,16 @@ var mouse = new THREE.Vector2(),
 var tweenSpeed = 2000;
 var tweenSpeed1 = tweenSpeed / 2;
 var overview = {
-    x: 0,
-    y: 600,
-    z: 1228,
-    alt: {
+    rotation: {
         x: 0,
         y: 600,
         z: 1228
     },
+    position: {
+        x: 0,
+        y: 600,
+        z: 1228
+    }
 };
 
 document.onmousedown = function (e) {
@@ -49,7 +51,7 @@ document.onmousedown = function (e) {
             var pos2 = new TWEEN.Tween(camera.position).to({
                 x: overview.x,
                 y: overview.y,
-                z: overview.z
+                //                z: overview.z
             }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
             var rot2 = new TWEEN.Tween(camera.rotation).to({
