@@ -26,7 +26,7 @@
         var mouse = new THREE.Vector2(),
             INTERSECTED;
 
-        var tweenSpeed = 5000;
+        var tweenSpeed = 1000;
         var overview = {
             position: {
                 x: 0,
@@ -106,17 +106,22 @@
 
             raycaster.setFromCamera(mouse, camera);
             var intersects = raycaster.intersectObjects(scene.children, true);
-            if (intersects.length > 0) {
+
+            // room select
+            if ((intersects.length > 0) && (camera.position.x == 0) && (camera.position.y == 30) && (camera.position.z == 300)) {
                 INTERSECTED = intersects[0].object;
                 if (INTERSECTED.parent.name == "selectLiving") {
                     scene.children[1].children[9].children[6].children[0].material.opacity = 0;
                     scene.children[1].children[9].children[7].children[0].material.opacity = .3;
+                    document.body.style.cursor = "pointer";
                 } else if (INTERSECTED.parent.name == "selectKitchen") {
                     scene.children[1].children[9].children[6].children[0].material.opacity = .3;
                     scene.children[1].children[9].children[7].children[0].material.opacity = 0;
+                    document.body.style.cursor = "pointer";
                 } else {
                     scene.children[1].children[9].children[6].children[0].material.opacity = 0;
                     scene.children[1].children[9].children[7].children[0].material.opacity = 0;
+                    document.body.style.cursor = "default";
                 }
             }
         }
@@ -128,14 +133,21 @@
             if (intersects.length > 0) {
                 INTERSECTED = intersects[0].object;
                 if (INTERSECTED.parent.name == "theFront") {
-                    phase1();
+                    viewOverview();
                 } else if (INTERSECTED.parent.name == "selectKitchen") {
-                    phase2();
+                    viewKitchen();
+                    scene.children[1].children[9].children[6].children[0].material.opacity = 0;
+                    document.body.style.cursor = "default";
+                    mouse.x = mouse.y = 0;
+                } else if (INTERSECTED.parent.name == "selectLiving") {
+                    scene.children[1].children[9].children[7].children[0].material.opacity = 0;
+                    document.body.style.cursor = "default";
+                    mouse.x = mouse.y = 0;
                 }
             }
         }
 
-        function phase1() {
+        function viewOverview() {
             var pos1 = new TWEEN.Tween(camera.position).to({
                 x: 0,
                 y: 30,
@@ -164,7 +176,7 @@
             document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
         }
 
-        function phase2() {
+        function viewKitchen() {
             var pos1 = new TWEEN.Tween(camera.position).to({
                 x: -40,
                 y: 30,
@@ -185,7 +197,7 @@
             frontPos.start();
             rot1.start();
 
-            var prompt2Node = document.createTextNode("phase2");
+            var prompt2Node = document.createTextNode("Kitchen");
             var prompt2 = document.createElement("h2");
             prompt2.append(prompt2Node);
             prompt2.id = "hud-prompt";
