@@ -19,7 +19,6 @@ body {
 }
 
 #hud {
-    font-size: 1.1em;
     width: calc(40% - var(--hudMargin));
     margin: var(--hudMargin);
     font-family: "SF Pro Display", sans-serif;

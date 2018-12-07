@@ -8,15 +8,15 @@
 
 <body>
     <div id="content">
-
         <div id="hud">
             <h1>You</h1>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse</p>
-            <h2>
+            <h2 id="hud-prompt">
                 Click <span onmouseover="frontHover()" onmouseout="frontOut()">house</span> to continue...
             </h2>
         </div>
     </div>
+
     <script src="js/three.min.js"></script>
     <script src="js/tween.min.js"></script>
     <script src="js/Detector.js"></script>
@@ -78,8 +78,7 @@
                 var frontObj = dae.getObjectByName("theFront").children[0];
                 frontMaterial = frontObj.material;
 
-                var light = scene.getObjectByName("SpLight", true);
-                light = light.children[0];
+                var light = scene.getObjectByName("SpLight").children[0];
                 light.castShadow = true;
                 light.distance = 1000;
                 render();
@@ -117,29 +116,39 @@
 
             if (intersects.length > 0) {
                 INTERSECTED = intersects[0].object;
-                if (INTERSECTED.parent.parent.name == "house" && INTERSECTED.parent.name == "theFront") {
-
-                    var pos1 = new TWEEN.Tween(camera.position).to({
-                        x: -200,
-                        y: 30,
-                        z: 200
-                    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
-
-                    var rot1 = new TWEEN.Tween(camera.rotation).to({
-                        x: 0,
-                        y: -1,
-                        z: 0
-                    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
-
-                    var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
-                        x: 4000
-                    }, tweenSpeed1).easing(TWEEN.Easing.Quadratic.InOut);
-
-                    pos1.start();
-                    frontPos.start();
-                    rot1.start();
+                if (INTERSECTED.parent.name == "theFront") {
+                    phase1();
                 }
             }
+        }
+
+        function phase1() {
+            var pos1 = new TWEEN.Tween(camera.position).to({
+                x: -200,
+                y: 30,
+                z: 200
+            }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+            var rot1 = new TWEEN.Tween(camera.rotation).to({
+                x: 0,
+                y: -1,
+                z: 0
+            }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+            var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
+                x: 4000
+            }, tweenSpeed1).easing(TWEEN.Easing.Quadratic.InOut);
+
+            pos1.start();
+            frontPos.start();
+            rot1.start();
+
+            var prompt2Node = document.createTextNode("Click faucet to continue");
+            var prompt2 = document.createElement("h2");
+            prompt2.append(prompt2Node);
+            prompt2.id = "hud-prompt";
+            var hudPromptNode = document.getElementById("hud-prompt");
+            document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
         }
 
         function frontHover() {
