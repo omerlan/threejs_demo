@@ -113,15 +113,13 @@
                 if (INTERSECTED.parent.name == "selectLiving") {
                     scene.children[1].children[9].children[6].children[0].material.opacity = 0;
                     scene.children[1].children[9].children[7].children[0].material.opacity = .3;
-                    document.body.style.cursor = "pointer";
+                    cursorPointer();
                 } else if (INTERSECTED.parent.name == "selectKitchen") {
                     scene.children[1].children[9].children[6].children[0].material.opacity = .3;
                     scene.children[1].children[9].children[7].children[0].material.opacity = 0;
-                    document.body.style.cursor = "pointer";
+                    cursorPointer();
                 } else {
-                    scene.children[1].children[9].children[6].children[0].material.opacity = 0;
-                    scene.children[1].children[9].children[7].children[0].material.opacity = 0;
-                    document.body.style.cursor = "default";
+                    cursorDeselect();
                 }
             }
         }
@@ -136,16 +134,25 @@
                     viewOverview();
                 } else if (INTERSECTED.parent.name == "selectKitchen") {
                     viewKitchen();
-                    scene.children[1].children[9].children[6].children[0].material.opacity = 0;
-                    document.body.style.cursor = "default";
-                    mouse.x = mouse.y = 0;
+                    cursorDeselect();
                 } else if (INTERSECTED.parent.name == "selectLiving") {
-                    scene.children[1].children[9].children[7].children[0].material.opacity = 0;
-                    document.body.style.cursor = "default";
-                    mouse.x = mouse.y = 0;
+                    viewLiving();
+                    cursorDeselect();
                 }
             }
         }
+
+        function cursorDeselect() {
+            scene.children[1].children[9].children[7].children[0].material.opacity = 0;
+            scene.children[1].children[9].children[6].children[0].material.opacity = 0;
+            document.body.style.cursor = "default";
+            mouse.x = mouse.y = -1;
+        }
+
+        function cursorPointer() {
+            document.body.style.cursor = "pointer";
+        }
+
 
         function viewOverview() {
             var pos1 = new TWEEN.Tween(camera.position).to({
