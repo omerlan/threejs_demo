@@ -31,11 +31,11 @@ document.onmousedown = function (e) {
     if (intersects.length > 0) {
         INTERSECTED = intersects[0].object;
         if (INTERSECTED.parent.name == "theFront") {
-            viewOverview();
-        } else if (INTERSECTED.parent.name == "selectKitchen") {
+            viewRoomSelect();
+        } else if (INTERSECTED.parent.name == "selectKitchen" && (camera.position.x == 0) && (camera.position.y == 30) && (camera.position.z == 300)) {
             viewKitchen();
             cursorDeselect();
-        } else if (INTERSECTED.parent.name == "selectLiving") {
+        } else if (INTERSECTED.parent.name == "selectLiving" && (camera.position.x == 0) && (camera.position.y == 30) && (camera.position.z == 300)) {
             viewLiving();
             cursorDeselect();
         }
@@ -54,7 +54,7 @@ function cursorPointer() {
 }
 
 
-function viewOverview() {
+function viewRoomSelect() {
     var pos1 = new TWEEN.Tween(camera.position).to({
         x: 0,
         y: 30,
@@ -96,12 +96,7 @@ function viewKitchen() {
         z: 0
     }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
-    var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
-        x: 4000
-    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
-
     pos1.start();
-    frontPos.start();
     rot1.start();
 
     var prompt2Node = document.createTextNode("Kitchen");
@@ -114,23 +109,18 @@ function viewKitchen() {
 
 function viewLiving() {
     var pos1 = new TWEEN.Tween(camera.position).to({
-        x: -40,
+        x: 40,
         y: 30,
         z: 150
     }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
     var rot1 = new TWEEN.Tween(camera.rotation).to({
         x: 0,
-        y: -.5,
+        y: .5,
         z: 0
     }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
-    var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
-        x: 4000
-    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
-
     pos1.start();
-    frontPos.start();
     rot1.start();
 
     var prompt2Node = document.createTextNode("Kitchen");
