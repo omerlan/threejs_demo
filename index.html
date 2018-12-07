@@ -26,7 +26,7 @@
         var mouse = new THREE.Vector2(),
             INTERSECTED;
 
-        var tweenSpeed = 0;
+        var tweenSpeed = 5000;
         var overview = {
             position: {
                 x: 0,
@@ -73,6 +73,8 @@
                 dae.scale.x = dae.scale.y = dae.scale.z = 0.5;
                 dae.updateMatrix();
                 scene.add(dae);
+                scene.children[1].children[9].children[6].children[0].material.opacity = 0;
+                scene.children[1].children[9].children[7].children[0].material.opacity = 0;
 
                 var frontObj = dae.getObjectByName("theFront").children[0];
                 frontMaterial = frontObj.material;
@@ -88,36 +90,46 @@
             camera.rotation.set(overview.rotation.x, overview.rotation.y, overview.rotation.z);
 
             raycaster = new THREE.Raycaster();
+        }
 
-            document.addEventListener('mousemove', onDocumentMouseMove, false);
-
-            function onDocumentMouseMove(e) {
-                e.preventDefault();
-                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-            }
-
-            function render() {
-                requestAnimationFrame(render);
-
-                // var timer = Date.now() * 0.001;
-                // camera.rotation.set(Math.sin(timer), Math.cos(timer), Math.cos(timer));
-
-                TWEEN.update();
-                renderer.render(scene, camera);
-            }
+        function render() {
+            requestAnimationFrame(render);
+            TWEEN.update();
+            renderer.render(scene, camera);
         }
         init()
+        // hover raycaster
+        document.onmousemove = function(e) {
+            e.preventDefault();
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
+            raycaster.setFromCamera(mouse, camera);
+            var intersects = raycaster.intersectObjects(scene.children, true);
+            if (intersects.length > 0) {
+                INTERSECTED = intersects[0].object;
+                if (INTERSECTED.parent.name == "selectLiving") {
+                    scene.children[1].children[9].children[6].children[0].material.opacity = 0;
+                    scene.children[1].children[9].children[7].children[0].material.opacity = .3;
+                } else if (INTERSECTED.parent.name == "selectKitchen") {
+                    scene.children[1].children[9].children[6].children[0].material.opacity = .3;
+                    scene.children[1].children[9].children[7].children[0].material.opacity = 0;
+                } else {
+                    scene.children[1].children[9].children[6].children[0].material.opacity = 0;
+                    scene.children[1].children[9].children[7].children[0].material.opacity = 0;
+                }
+            }
+        }
+
+        // click raycaster
         document.onmousedown = function(e) {
             raycaster.setFromCamera(mouse, camera);
             var intersects = raycaster.intersectObjects(scene.children, true);
-
             if (intersects.length > 0) {
                 INTERSECTED = intersects[0].object;
                 if (INTERSECTED.parent.name == "theFront") {
                     phase1();
-                } else if (INTERSECTED.parent.name == "sink") {
+                } else if (INTERSECTED.parent.name == "selectKitchen") {
                     phase2();
                 }
             }
@@ -186,6 +198,7 @@
         }
 
         function frontOut() {
+            // bricks original colour
             frontMaterial.color.setRGB(0.7568627450980392, 0.47058823529411764, 0.24313725490196078);
         }
     </script>
