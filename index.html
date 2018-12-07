@@ -27,7 +27,6 @@
             INTERSECTED;
 
         var tweenSpeed = 2000;
-        var tweenSpeed1 = tweenSpeed / 2;
         var overview = {
             position: {
                 x: 0,
@@ -118,32 +117,64 @@
                 INTERSECTED = intersects[0].object;
                 if (INTERSECTED.parent.name == "theFront") {
                     phase1();
+                    console.log("phase1");
+                } else if (INTERSECTED.parent.name == "sink") {
+                    console.log("phase2");
                 }
             }
         }
 
         function phase1() {
             var pos1 = new TWEEN.Tween(camera.position).to({
-                x: -200,
+                x: 0,
                 y: 30,
-                z: 200
+                z: 300
             }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
             var rot1 = new TWEEN.Tween(camera.rotation).to({
                 x: 0,
-                y: -1,
+                y: 0,
                 z: 0
             }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
             var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
                 x: 4000
-            }, tweenSpeed1).easing(TWEEN.Easing.Quadratic.InOut);
+            }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
             pos1.start();
             frontPos.start();
             rot1.start();
 
-            var prompt2Node = document.createTextNode("Click faucet to continue");
+            var prompt2Node = document.createTextNode("Select a room");
+            var prompt2 = document.createElement("h2");
+            prompt2.append(prompt2Node);
+            prompt2.id = "hud-prompt";
+            var hudPromptNode = document.getElementById("hud-prompt");
+            document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+        }
+
+        function phase2() {
+            var pos1 = new TWEEN.Tween(camera.position).to({
+                x: 300,
+                y: 30,
+                z: 0
+            }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+            var rot1 = new TWEEN.Tween(camera.rotation).to({
+                x: 0,
+                y: 0,
+                z: 0
+            }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+            var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
+                x: 4000
+            }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+            pos1.start();
+            frontPos.start();
+            rot1.start();
+
+            var prompt2Node = document.createTextNode("Select a room");
             var prompt2 = document.createElement("h2");
             prompt2.append(prompt2Node);
             prompt2.id = "hud-prompt";
@@ -158,7 +189,6 @@
         function frontOut() {
             frontMaterial.color.setRGB(0.7568627450980392, 0.47058823529411764, 0.24313725490196078);
         }
-
     </script>
 </body>
 
