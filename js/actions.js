@@ -81,11 +81,18 @@ function viewKitchen() {
     pos1.start();
     rot1.start();
 
-    var prompt2Node = document.createTextNode("Kitchen");
+    var prompt2Node = document.createTextNode("What's wrong with this scene?");
     var prompt2 = document.createElement("h2");
     prompt2.append(prompt2Node);
-    prompt2.id = "hud-prompt";
-    var hudPromptNode = document.getElementById("hud-prompt");
+    prompt2.id = "hud-h2";
+    var hudPromptNode = document.getElementById("hud-h2");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    prompt2Node = document.createTextNode("Kitchen");
+    prompt2 = document.createElement("h1");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-h1";
+    hudPromptNode = document.getElementById("hud-h1");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 }
 
@@ -105,11 +112,18 @@ function viewLiving() {
     pos1.start();
     rot1.start();
 
-    var prompt2Node = document.createTextNode("Living room");
+    var prompt2Node = document.createTextNode("What's wrong with this scene?");
     var prompt2 = document.createElement("h2");
     prompt2.append(prompt2Node);
-    prompt2.id = "hud-prompt";
-    var hudPromptNode = document.getElementById("hud-prompt");
+    prompt2.id = "hud-h2";
+    var hudPromptNode = document.getElementById("hud-h2");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    prompt2Node = document.createTextNode("Living Room");
+    prompt2 = document.createElement("h1");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-h1";
+    hudPromptNode = document.getElementById("hud-h1");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 }
 
@@ -134,11 +148,18 @@ function viewRoomSelect() {
     pos1.start();
     rot1.start();
 
-    var prompt2Node = document.createTextNode("Select a room");
+    var prompt2Node = document.createTextNode("Select a room...");
     var prompt2 = document.createElement("h2");
     prompt2.append(prompt2Node);
-    prompt2.id = "hud-prompt";
-    var hudPromptNode = document.getElementById("hud-prompt");
+    prompt2.id = "hud-h2";
+    var hudPromptNode = document.getElementById("hud-h2");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    prompt2Node = document.createTextNode("You");
+    prompt2 = document.createElement("h1");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-h1";
+    hudPromptNode = document.getElementById("hud-h1");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 }
 
@@ -157,13 +178,6 @@ function viewOverview() {
 
     pos1.start();
     rot1.start();
-
-    var prompt2Node = document.createTextNode("Kitchen");
-    var prompt2 = document.createElement("h2");
-    prompt2.append(prompt2Node);
-    prompt2.id = "hud-prompt";
-    var hudPromptNode = document.getElementById("hud-prompt");
-    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 }
 
 function frontHover() {

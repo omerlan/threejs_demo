@@ -19,7 +19,11 @@ body {
 }
 
 #hud {
-    width: calc(40% - var(--hudMargin));
+    width: calc(30% - var(--hudMargin));
     margin: var(--hudMargin);
+    padding: 0 10px;
     font-family: "SF Pro Display", sans-serif;
+    font-size: .8em;
+    background: rgba(255,255,255,.8);
+    border-radius: 20px;
 }
