@@ -43,6 +43,9 @@ document.onmousedown = function (e) {
         } else if (INTERSECTED.parent.name == "sink") {
             viewRoomSelect();
             cursorDeselect();
+        } else if (INTERSECTED.parent.name == "tv") {
+            viewRoomSelect();
+            cursorDeselect();
         }
     }
 }
