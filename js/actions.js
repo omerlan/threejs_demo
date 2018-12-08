@@ -32,11 +32,16 @@ document.onmousedown = function (e) {
         INTERSECTED = intersects[0].object;
         if (INTERSECTED.parent.name == "theFront") {
             viewRoomSelect();
-        } else if (INTERSECTED.parent.name == "selectKitchen" && (camera.position.x == 0) && (camera.position.y == 30) && (camera.position.z == 300)) {
+        } else if (INTERSECTED.parent.name == "selectKitchen" && (camera.position.x == coordRoomSelect.position.x) && (camera.position.y == coordRoomSelect.position.y) && (camera.position.z == coordRoomSelect.position.z)) {
             viewKitchen();
             cursorDeselect();
-        } else if (INTERSECTED.parent.name == "selectLiving" && (camera.position.x == 0) && (camera.position.y == 30) && (camera.position.z == 300)) {
+            moveRoomSelector();
+        } else if (INTERSECTED.parent.name == "selectLiving" && (camera.position.x == coordRoomSelect.position.x) && (camera.position.y == coordRoomSelect.position.y) && (camera.position.z == coordRoomSelect.position.z)) {
             viewLiving();
+            cursorDeselect();
+            moveRoomSelector();
+        } else if (INTERSECTED.parent.name == "sink") {
+            viewRoomSelect();
             cursorDeselect();
         }
     }
@@ -53,47 +58,21 @@ function cursorPointer() {
     document.body.style.cursor = "pointer";
 }
 
-
-function viewRoomSelect() {
-    var pos1 = new TWEEN.Tween(camera.position).to({
-        x: 0,
-        y: 30,
-        z: 300
-    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
-
-    var rot1 = new TWEEN.Tween(camera.rotation).to({
-        x: 0,
-        y: 0,
-        z: 0
-    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
-
-    var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
-        x: 4000
-    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
-
-    pos1.start();
-    frontPos.start();
-    rot1.start();
-
-    var prompt2Node = document.createTextNode("Select a room");
-    var prompt2 = document.createElement("h2");
-    prompt2.append(prompt2Node);
-    prompt2.id = "hud-prompt";
-    var hudPromptNode = document.getElementById("hud-prompt");
-    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+function moveRoomSelector() {
+    scene.children[1].children[9].children[6].position.x = scene.children[1].children[9].children[7].position.x = -100
 }
 
 function viewKitchen() {
     var pos1 = new TWEEN.Tween(camera.position).to({
-        x: -40,
-        y: 30,
-        z: 150
+        x: coordKitchen.position.x,
+        y: coordKitchen.position.y,
+        z: coordKitchen.position.z
     }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
     var rot1 = new TWEEN.Tween(camera.rotation).to({
-        x: 0,
-        y: -.5,
-        z: 0
+        x: coordKitchen.rotation.x,
+        y: coordKitchen.rotation.y,
+        z: coordKitchen.rotation.z
     }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
     pos1.start();
@@ -109,15 +88,68 @@ function viewKitchen() {
 
 function viewLiving() {
     var pos1 = new TWEEN.Tween(camera.position).to({
-        x: 40,
-        y: 30,
-        z: 150
+        x: coordLiving.position.x,
+        y: coordLiving.position.y,
+        z: coordLiving.position.z
     }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
     var rot1 = new TWEEN.Tween(camera.rotation).to({
-        x: 0,
-        y: .5,
-        z: 0
+        x: coordLiving.rotation.x,
+        y: coordLiving.rotation.y,
+        z: coordLiving.rotation.z
+    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+    pos1.start();
+    rot1.start();
+
+    var prompt2Node = document.createTextNode("Living room");
+    var prompt2 = document.createElement("h2");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-prompt";
+    var hudPromptNode = document.getElementById("hud-prompt");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+}
+
+function viewRoomSelect() {
+    scene.children[1].children[9].children[6].position.x = scene.children[1].children[9].children[7].position.x = 97.5;
+
+    var pos1 = new TWEEN.Tween(camera.position).to({
+        x: coordRoomSelect.position.x,
+        y: coordRoomSelect.position.y,
+        z: coordRoomSelect.position.z
+    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+    var rot1 = new TWEEN.Tween(camera.rotation).to({
+        x: coordRoomSelect.rotation.x,
+        y: coordRoomSelect.rotation.y,
+        z: coordRoomSelect.rotation.z
+    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+    var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
+        x: 4000
+    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+    frontPos.start();
+    pos1.start();
+    rot1.start();
+
+    var prompt2Node = document.createTextNode("Select a room");
+    var prompt2 = document.createElement("h2");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-prompt";
+    var hudPromptNode = document.getElementById("hud-prompt");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+}
+
+function viewOverview() {
+    var pos1 = new TWEEN.Tween(camera.position).to({
+        x: coordOverview.position.x,
+        y: coordOverview.position.y,
+        z: coordOverview.position.z
+    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+    var rot1 = new TWEEN.Tween(camera.rotation).to({
+        x: coordOverview.rotation.x,
+        y: coordOverview.rotation.y,
+        z: coordOverview.rotation.z
     }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
 
     pos1.start();
