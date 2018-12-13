@@ -29,6 +29,7 @@ body {
 }
 
 #hud2 {
+    display: none;
     position: absolute;
     bottom: 0;
     width: 50%;
@@ -53,7 +54,20 @@ body {
 }
 
 .progress-status {
+    height: .5em;
+}
+
+#water {
+    width: 50%;
+    background: #00b2ce;
+}
+
+#energy {
+    width: 50%;
+    background: #ff5000;
+}
+
+#efficiency {
     width: 5%;
     background: #fff;
-    height: .5em;
 }

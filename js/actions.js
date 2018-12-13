@@ -41,9 +41,11 @@ document.onmousedown = function (e) {
             cursorDeselect();
             moveRoomSelector();
         } else if (INTERSECTED.parent.name == "sink") {
+            document.getElementById("water").style.width = "30%";
             viewRoomSelect();
             cursorDeselect();
         } else if (INTERSECTED.parent.name == "tv") {
+            document.getElementById("energy").style.width = "30%";
             viewRoomSelect();
             cursorDeselect();
         }
@@ -128,6 +130,7 @@ function viewLiving() {
 }
 
 function viewRoomSelect() {
+    document.getElementById("hud2").style.display = "block";
     scene.children[1].children[9].children[6].position.x = scene.children[1].children[9].children[7].position.x = 97.5;
 
     var pos1 = new TWEEN.Tween(camera.position).to({
