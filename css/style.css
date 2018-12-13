@@ -27,3 +27,33 @@ body {
     background: rgba(255, 255, 255, .8);
     border-radius: 20px;
 }
+
+#hud2 {
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    margin: var(--hudMargin);
+}
+
+#hud2 > div {
+    display: grid;
+}
+
+#hud2 p {
+    color: #fff;
+    margin: 1em 0 .25em 0;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 1em;
+}
+
+.progress-bar {
+    width: 50%;
+    background: rgba(0, 0, 0, .5);
+    height: 1px;
+}
+
+.progress-status {
+    width: 5%;
+    background: #fff;
+    height: .5em;
+}
