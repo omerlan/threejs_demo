@@ -44,7 +44,7 @@ document.onmousedown = function (e) {
             document.getElementById("water").style.width = "30%";
             viewRoomSelect();
             cursorDeselect();
-        } else if (INTERSECTED.parent.name == "tv") {
+        } else if (INTERSECTED.parent.name == "tv" || INTERSECTED.parent.name == "screen") {
             document.getElementById("energy").style.width = "30%";
             viewRoomSelect();
             cursorDeselect();
@@ -83,7 +83,7 @@ function viewKitchen() {
     pos1.start();
     rot1.start();
 
-    var prompt2Node = document.createTextNode("What's wrong with this scene?");
+    var prompt2Node = document.createTextNode("Turn off the tap");
     var prompt2 = document.createElement("h2");
     prompt2.append(prompt2Node);
     prompt2.id = "hud-h2";
@@ -95,6 +95,13 @@ function viewKitchen() {
     prompt2.append(prompt2Node);
     prompt2.id = "hud-h1";
     hudPromptNode = document.getElementById("hud-h1");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    prompt2Node = document.createTextNode("Guess what fuckface, the sink drips too much.");
+    prompt2 = document.createElement("p");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-p";
+    hudPromptNode = document.getElementById("hud-p");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 }
 
@@ -114,7 +121,7 @@ function viewLiving() {
     pos1.start();
     rot1.start();
 
-    var prompt2Node = document.createTextNode("What's wrong with this scene?");
+    var prompt2Node = document.createTextNode("Turn off the TV");
     var prompt2 = document.createElement("h2");
     prompt2.append(prompt2Node);
     prompt2.id = "hud-h2";
@@ -126,6 +133,13 @@ function viewLiving() {
     prompt2.append(prompt2Node);
     prompt2.id = "hud-h1";
     hudPromptNode = document.getElementById("hud-h1");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    prompt2Node = document.createTextNode("Are you watching TV? didn't fuckin think so. Turn it off.");
+    prompt2 = document.createElement("p");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-p";
+    hudPromptNode = document.getElementById("hud-p");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 }
 
@@ -164,6 +178,20 @@ function viewRoomSelect() {
     prompt2.id = "hud-h1";
     hudPromptNode = document.getElementById("hud-h1");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    prompt2Node = document.createTextNode("Here are the two rooms you fuck up the environment in the most you piece of shit");
+    prompt2 = document.createElement("p");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-p";
+    hudPromptNode = document.getElementById("hud-p");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    pos1.start();
+    rot1.start();
+}
+
+function frontHover() {
+    frontMaterial.color.setRGB(1, .9, 0);
 }
 
 function viewOverview() {
