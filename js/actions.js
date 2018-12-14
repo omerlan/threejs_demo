@@ -40,7 +40,6 @@ document.onmousedown = function (e) {
             viewLiving();
             cursorDeselect();
             moveRoomSelector();
-
         } else if ((INTERSECTED.parent.name == "sink") && (tvClicked == 1)) {
             document.getElementById("water").style.width = "30%";
             scene.children[1].children[13].position.set(-1000, 1000, 1000);
@@ -89,6 +88,7 @@ function moveRoomSelector() {
 }
 
 function viewKitchen() {
+    document.getElementById("hud").style.background = "rgba(255, 255, 255, .8)";
     var pos1 = new TWEEN.Tween(camera.position).to({
         x: coordKitchen.position.x,
         y: coordKitchen.position.y,
@@ -118,7 +118,7 @@ function viewKitchen() {
     hudPromptNode = document.getElementById("hud-h1");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 
-    prompt2Node = document.createTextNode("Guess what fuckface, the sink drips too much.");
+    prompt2Node = document.createTextNode("Many times, people don't notice when their faucet is dripping. Save on your water bill and help conserve water.");
     prompt2 = document.createElement("p");
     prompt2.append(prompt2Node);
     prompt2.id = "hud-p";
@@ -127,6 +127,7 @@ function viewKitchen() {
 }
 
 function viewLiving() {
+    document.getElementById("hud").style.background = "rgba(255, 255, 255, .8)";
     var pos1 = new TWEEN.Tween(camera.position).to({
         x: coordLiving.position.x,
         y: coordLiving.position.y,
@@ -156,7 +157,7 @@ function viewLiving() {
     hudPromptNode = document.getElementById("hud-h1");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 
-    prompt2Node = document.createTextNode("Are you watching TV? didn't fuckin think so. Turn it off.");
+    prompt2Node = document.createTextNode("Most people forget to turn off the TV after they've left the room. Your TV doesn't know when you've stopped watching. Save on your energy bill and cut your carbon foot print.");
     prompt2 = document.createElement("p");
     prompt2.append(prompt2Node);
     prompt2.id = "hud-p";
@@ -165,6 +166,7 @@ function viewLiving() {
 }
 
 function viewRoomSelect() {
+    document.getElementById("hud").style.background = "none";
     document.getElementById("hud2").style.display = "block";
     scene.children[1].children[9].children[6].position.x = scene.children[1].children[9].children[7].position.x = 97.5;
 
@@ -200,7 +202,7 @@ function viewRoomSelect() {
     hudPromptNode = document.getElementById("hud-h1");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 
-    prompt2Node = document.createTextNode("Here are the two rooms you fuck up the environment in the most you piece of shit");
+    prompt2Node = document.createTextNode("Let's take a look at how you can help make a change. Here we have the kitchen, and the living room. In each of these rooms, there is an inefficiency in the use of resources.");
     prompt2 = document.createElement("p");
     prompt2.append(prompt2Node);
     prompt2.id = "hud-p";
@@ -216,6 +218,7 @@ function frontHover() {
 }
 
 function viewOverview() {
+    document.getElementById("hud").style.background = "none";
     var pos1 = new TWEEN.Tween(camera.position).to({
         x: coordOverview.position.x,
         y: coordOverview.position.y,
@@ -233,6 +236,7 @@ function viewOverview() {
 }
 
 function viewEnd() {
+    document.getElementById("hud").style.background = "none";
     var pos1 = new TWEEN.Tween(camera.position).to({
         x: coordOverview.position.x,
         y: coordOverview.position.y,
@@ -252,21 +256,21 @@ function viewEnd() {
     pos1.start();
     rot1.start();
 
-    var prompt2Node = document.createTextNode("Done");
-    var prompt2 = document.createElement("h2");
-    prompt2.append(prompt2Node);
-    prompt2.id = "hud-h2";
-    var hudPromptNode = document.getElementById("hud-h2");
-    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
-
-    prompt2Node = document.createTextNode("Done");
+    prompt2Node = document.createTextNode("Thank you for making the world a better place!");
     prompt2 = document.createElement("h1");
     prompt2.append(prompt2Node);
     prompt2.id = "hud-h1";
     hudPromptNode = document.getElementById("hud-h1");
     document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 
-    prompt2Node = document.createTextNode("Done");
+    prompt2Node = document.createTextNode("");
+    prompt2 = document.createElement("h2");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-h2";
+    hudPromptNode = document.getElementById("hud-h2");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    prompt2Node = document.createTextNode("");
     prompt2 = document.createElement("p");
     prompt2.append(prompt2Node);
     prompt2.id = "hud-p";
