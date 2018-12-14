@@ -44,11 +44,12 @@ document.onmousedown = function (e) {
         } else if ((INTERSECTED.parent.name == "sink") && (tvClicked == 1)) {
             document.getElementById("water").style.width = "30%";
             scene.children[1].children[13].position.set(-1000, 1000, 1000);
-            viewRoomSelect();
             cursorDeselect();
-            //            end
+            viewEnd();
+            document.getElementById("efficiency").style.width = "50%";
         } else if (INTERSECTED.parent.name == "sink") {
             document.getElementById("water").style.width = "30%";
+            document.getElementById("efficiency").style.width = "25%";
             scene.children[1].children[13].position.set(-1000, 1000, 1000);
             viewRoomSelect();
             cursorDeselect();
@@ -57,11 +58,12 @@ document.onmousedown = function (e) {
             document.getElementById("energy").style.width = "30%";
             INTERSECTED.material.color.setRGB(0, 0, 0);
             INTERSECTED.material.reflectivity = 1;
-            viewRoomSelect();
             cursorDeselect();
-            //            end
+            viewEnd();
+            document.getElementById("efficiency").style.width = "50%";
         } else if (INTERSECTED.parent.name == "tv" || INTERSECTED.parent.name == "screen") {
             document.getElementById("energy").style.width = "30%";
+            document.getElementById("efficiency").style.width = "25%";
             INTERSECTED.material.color.setRGB(0, 0, 0);
             INTERSECTED.material.reflectivity = 1;
             viewRoomSelect();
@@ -228,6 +230,48 @@ function viewOverview() {
 
     pos1.start();
     rot1.start();
+}
+
+function viewEnd() {
+    var pos1 = new TWEEN.Tween(camera.position).to({
+        x: coordOverview.position.x,
+        y: coordOverview.position.y,
+        z: coordOverview.position.z
+    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+    var rot1 = new TWEEN.Tween(camera.rotation).to({
+        x: coordOverview.rotation.x,
+        y: coordOverview.rotation.y,
+        z: coordOverview.rotation.z
+    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+
+    var frontPos = new TWEEN.Tween(scene.children[1].children[9].children[5].position).to({
+        x: 97.5
+    }, tweenSpeed).easing(TWEEN.Easing.Quadratic.InOut);
+    frontPos.start();
+    pos1.start();
+    rot1.start();
+
+    var prompt2Node = document.createTextNode("Done");
+    var prompt2 = document.createElement("h2");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-h2";
+    var hudPromptNode = document.getElementById("hud-h2");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    prompt2Node = document.createTextNode("Done");
+    prompt2 = document.createElement("h1");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-h1";
+    hudPromptNode = document.getElementById("hud-h1");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
+
+    prompt2Node = document.createTextNode("Done");
+    prompt2 = document.createElement("p");
+    prompt2.append(prompt2Node);
+    prompt2.id = "hud-p";
+    hudPromptNode = document.getElementById("hud-p");
+    document.getElementById("hud").replaceChild(prompt2, hudPromptNode);
 }
 
 function frontHover() {
