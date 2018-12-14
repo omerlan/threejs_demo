@@ -40,11 +40,11 @@
     <script src="js/Detector.js"></script>
     <script src="js/ColladaLoader.js"></script>
     <script>
-        var scene, camera, renderer, raycaster, frontObj;
+        var scene, camera, renderer, raycaster, frontObj, sinkClicked, tvClicked;
         var mouse = new THREE.Vector2(),
             INTERSECTED;
 
-        var tweenSpeed = 3000;
+        var tweenSpeed = 0;
         var coordOverview = {
             position: {
                 x: 0,

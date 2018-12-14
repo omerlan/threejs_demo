@@ -40,17 +40,33 @@ document.onmousedown = function (e) {
             viewLiving();
             cursorDeselect();
             moveRoomSelector();
+
+        } else if ((INTERSECTED.parent.name == "sink") && (tvClicked == 1)) {
+            document.getElementById("water").style.width = "30%";
+            scene.children[1].children[13].position.set(-1000, 1000, 1000);
+            viewRoomSelect();
+            cursorDeselect();
+            //            end
         } else if (INTERSECTED.parent.name == "sink") {
             document.getElementById("water").style.width = "30%";
             scene.children[1].children[13].position.set(-1000, 1000, 1000);
             viewRoomSelect();
             cursorDeselect();
+            sinkClicked = 1;
+        } else if ((INTERSECTED.parent.name == "tv" || INTERSECTED.parent.name == "screen") && (sinkClicked == 1)) {
+            document.getElementById("energy").style.width = "30%";
+            INTERSECTED.material.color.setRGB(0, 0, 0);
+            INTERSECTED.material.reflectivity = 1;
+            viewRoomSelect();
+            cursorDeselect();
+            //            end
         } else if (INTERSECTED.parent.name == "tv" || INTERSECTED.parent.name == "screen") {
             document.getElementById("energy").style.width = "30%";
             INTERSECTED.material.color.setRGB(0, 0, 0);
             INTERSECTED.material.reflectivity = 1;
             viewRoomSelect();
             cursorDeselect();
+            tvClicked = 1;
         }
     }
 }
