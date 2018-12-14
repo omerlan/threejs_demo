@@ -42,10 +42,13 @@ document.onmousedown = function (e) {
             moveRoomSelector();
         } else if (INTERSECTED.parent.name == "sink") {
             document.getElementById("water").style.width = "30%";
+            scene.children[1].children[13].position.set(-1000, 1000, 1000);
             viewRoomSelect();
             cursorDeselect();
         } else if (INTERSECTED.parent.name == "tv" || INTERSECTED.parent.name == "screen") {
             document.getElementById("energy").style.width = "30%";
+            INTERSECTED.material.color.setRGB(0, 0, 0);
+            INTERSECTED.material.reflectivity = 1;
             viewRoomSelect();
             cursorDeselect();
         }
