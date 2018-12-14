@@ -46,7 +46,7 @@ document.onmousedown = function (e) {
             cursorDeselect();
             viewEnd();
             document.getElementById("efficiency").style.width = "50%";
-        } else if (INTERSECTED.parent.name == "sink") {
+        } else if (INTERSECTED.parent.name == "sink" || INTERSECTED.parent.name == "faucet") {
             document.getElementById("water").style.width = "30%";
             document.getElementById("efficiency").style.width = "25%";
             scene.children[1].children[13].position.set(-1000, 1000, 1000);
